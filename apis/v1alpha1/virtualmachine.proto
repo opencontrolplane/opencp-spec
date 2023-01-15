@@ -1,0 +1,67 @@
+// This proto file is to represent the data structure of the instance
+syntax = "proto3";
+
+package virtualmachine.v1alpha1;
+option go_package = "github.com/opencontrolplane/opencp-spec/grpc";
+
+// import "google/protobuf/any.proto";
+// import "google/protobuf/timestamp.proto";
+import "k8s.io/apimachinery/pkg/apis/meta/v1/generated.proto";
+import "options.proto";
+
+message VirtualMachine {
+    // Standard object's metadata.
+    // More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+    // +optional
+    optional k8s.io.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 1;  
+    
+    // The spec of the virtual machine.
+    VirtualMachineSpec spec = 2;
+    
+    // The status of the virtual machine.
+    VirtualMachineStatus status = 3;
+}
+
+message VirtualMachineSpec {
+    string size = 1; 
+	string firewall = 2;
+	bool ipv4 = 3;
+	bool ipv6 = 4;
+	string staticIP = 5;
+	string storageClass = 6; 
+	string image = 7;
+	VirtualMachineAuth Auth  = 8;
+	repeated string tags = 9;
+	string cloudInit = 10;
+	string userScript = 11;
+}
+
+message VirtualMachineAuth {
+	string user = 1;
+	optional string password = 2;
+	string sshKey = 3;
+}
+
+message VirtualMachineStatus {
+    string privateIP = 1 [json_name = "private_ip"];
+	string publicIP  = 2 [json_name = "public_ip"]; 
+	string state     = 3;
+}
+
+// VirtualMachineList is a list of VirtualMachine.
+message VirtualMachineList {
+    // Standard list metadata.
+    // +optional
+    optional k8s.io.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 1;
+  
+    // Items is the list of VistualMachine.
+    repeated VirtualMachine items = 2;
+}
+
+service VirtualMachineService {
+    rpc CreateVirtualMachine(VirtualMachine) returns (VirtualMachine) {}
+    rpc GetVirtualMachine(options.FilterOptions) returns (VirtualMachine) {}
+    rpc ListVirtualMachine(options.FilterOptions) returns (VirtualMachineList) {}
+    rpc DeleteVirtualMachine(options.FilterOptions) returns (VirtualMachine) {}
+    rpc UpdateVirtualMachine(VirtualMachine) returns (VirtualMachine) {}
+}

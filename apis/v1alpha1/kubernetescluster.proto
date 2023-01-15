@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+package kubernetescluster.v1alpha1;
+option go_package = "github.com/opencontrolplane/opencp-spec/grpc";
+
+import "k8s.io/apimachinery/pkg/apis/meta/v1/generated.proto";
+
+message KubernetesCluster {
+    // Standard object's metadata.
+    // More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+    // +optional
+    optional k8s.io.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 1;
+    
+    // The spec of the KubernetesCluster.
+    KubernetesClusterSpec spec = 2;
+    
+    // The status of the KubernetesCluster.
+    KubernetesClusterStatus status = 3;
+}
+
+message KubernetesClusterSpec {
+    repeated KubernetesClusterPool pools = 1;
+	string version = 2;
+	string firewall = 3;
+	string cni_plugin = 4;
+}
+
+message KubernetesClusterPool {
+    string id = 1;
+	string size = 2;     
+	int64  count = 3;      
+	bool   autoscaling = 4; 
+	optional int64  min_size = 5;
+	optional int64  max_size = 6;
+}
+
+message KubernetesClusterStatus {
+    string state = 1;
+	string endpoint = 2;
+	string public_ip = 3;
+}
+
+// KubernetesClusterList is a list of KubernetesCluster.
+message KubernetesClusterList {
+    // Standard list metadata.
+    // +optional
+    optional k8s.io.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 1;
+  
+    // Items is the list of VistualMachine.
+    repeated KubernetesCluster items = 2;
+}
+
+service KubernetesClusterService {
+    rpc CreateKubernetesCluster (KubernetesCluster) returns (KubernetesCluster) {}
+    rpc GetKubernetesCluster (KubernetesCluster) returns (KubernetesCluster) {}
+    rpc ListKubernetesCluster (KubernetesCluster) returns (KubernetesClusterList) {}
+    rpc UpdateKubernetesCluster (KubernetesCluster) returns (KubernetesCluster) {}
+    rpc DeleteKubernetesCluster (KubernetesCluster) returns (KubernetesCluster) {}
+}

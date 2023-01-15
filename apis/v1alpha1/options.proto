@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package options;
+option go_package = "github.com/opencontrolplane/opencp-spec/grpc";
+
+// FilterOptions is the query options to a standard REST list call, and is shared
+message FilterOptions {
+    // ID is the ID of the resource to filter by
+    optional string id = 1;
+
+    // Name is the name of the resource to filter by
+    optional string name = 2;
+
+    // Namespace is the namespace of the resource to filter by
+    optional string namespace = 3;
+}

@@ -1,0 +1,23 @@
+// This proto file is to manage the auth from the shim to the provider using token
+syntax = "proto3";
+
+package auth.v1alpha1;
+option go_package = "github.com/opencontrolplane/opencp-spec/grpc";
+
+// AuthRequest is the request from the shim to the provider
+message LoginRequest {
+    // Token is the token from the shim
+    string token = 1;
+}
+
+// AuthResponse is the response from the provider to the shim
+message LoginResponse {
+    // valid is the flag to indicate if the token is valid
+    bool valid = 1;
+}
+
+// Auth is the service definition for the auth service
+service Login {
+    // Check is the method to check the token
+    rpc Check(LoginRequest) returns (LoginResponse) {}
+}

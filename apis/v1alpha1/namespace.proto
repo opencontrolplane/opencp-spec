@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+package namespace.v1alpha1;
+option go_package = "github.com/opencontrolplane/opencp-spec/grpc";
+
+import "k8s.io/apimachinery/pkg/apis/meta/v1/generated.proto";
+import "k8s.io/api/core/v1/generated.proto";
+import "options.proto";
+
+// Namespace provides a scope for Names.
+// Use of multiple namespaces is optional.
+message Namespace {
+    // TODO: Add the typemeta
+    string apiVersion = 1;
+    string kind = 2;
+    // Standard object's metadata.
+    // More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+    // +optional
+    optional k8s.io.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+  
+    // Spec defines the behavior of the Namespace.
+    // More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+    // +optional
+    optional k8s.io.api.core.v1.NamespaceSpec spec = 4;
+  
+    // Status describes the current status of a Namespace.
+    // More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+    // +optional
+    optional k8s.io.api.core.v1.NamespaceStatus status = 5;
+}
+
+// NamespaceList is a list of Namespaces.
+message NamespaceList {
+    string apiVersion = 1;
+    string kind = 2;
+    // Standard list metadata.
+    // More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+    // +optional
+    optional k8s.io.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 3;
+  
+    // Items is the list of Namespace objects in the list.
+    // More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/
+    repeated Namespace items = 4;
+}
+
+service NamespaceService {
+    rpc CreateNamespace (Namespace) returns (Namespace) {}
+    rpc GetNamespace (options.FilterOptions) returns (Namespace) {}
+    rpc UpdateNamespace (Namespace) returns (Namespace) {}
+    rpc DeleteNamespace (options.FilterOptions) returns (Namespace) {}
+    rpc ListNamespace (options.FilterOptions) returns (NamespaceList) {}
+}
