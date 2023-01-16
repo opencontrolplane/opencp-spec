@@ -4,6 +4,8 @@ package kubernetescluster.v1alpha1;
 option go_package = "github.com/opencontrolplane/opencp-spec/grpc";
 
 import "k8s.io/apimachinery/pkg/apis/meta/v1/generated.proto";
+import "options.proto";
+
 
 message KubernetesCluster {
     // Standard object's metadata.
@@ -52,8 +54,8 @@ message KubernetesClusterList {
 
 service KubernetesClusterService {
     rpc CreateKubernetesCluster (KubernetesCluster) returns (KubernetesCluster) {}
-    rpc GetKubernetesCluster (KubernetesCluster) returns (KubernetesCluster) {}
-    rpc ListKubernetesCluster (KubernetesCluster) returns (KubernetesClusterList) {}
+    rpc GetKubernetesCluster (options.FilterOptions) returns (KubernetesCluster) {}
+    rpc ListKubernetesCluster (options.FilterOptions) returns (KubernetesClusterList) {}
     rpc UpdateKubernetesCluster (KubernetesCluster) returns (KubernetesCluster) {}
-    rpc DeleteKubernetesCluster (KubernetesCluster) returns (KubernetesCluster) {}
+    rpc DeleteKubernetesCluster (options.FilterOptions) returns (KubernetesCluster) {}
 }

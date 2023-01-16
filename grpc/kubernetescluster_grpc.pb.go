@@ -23,10 +23,10 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type KubernetesClusterServiceClient interface {
 	CreateKubernetesCluster(ctx context.Context, in *KubernetesCluster, opts ...grpc.CallOption) (*KubernetesCluster, error)
-	GetKubernetesCluster(ctx context.Context, in *KubernetesCluster, opts ...grpc.CallOption) (*KubernetesCluster, error)
-	ListKubernetesCluster(ctx context.Context, in *KubernetesCluster, opts ...grpc.CallOption) (*KubernetesClusterList, error)
+	GetKubernetesCluster(ctx context.Context, in *FilterOptions, opts ...grpc.CallOption) (*KubernetesCluster, error)
+	ListKubernetesCluster(ctx context.Context, in *FilterOptions, opts ...grpc.CallOption) (*KubernetesClusterList, error)
 	UpdateKubernetesCluster(ctx context.Context, in *KubernetesCluster, opts ...grpc.CallOption) (*KubernetesCluster, error)
-	DeleteKubernetesCluster(ctx context.Context, in *KubernetesCluster, opts ...grpc.CallOption) (*KubernetesCluster, error)
+	DeleteKubernetesCluster(ctx context.Context, in *FilterOptions, opts ...grpc.CallOption) (*KubernetesCluster, error)
 }
 
 type kubernetesClusterServiceClient struct {
@@ -46,7 +46,7 @@ func (c *kubernetesClusterServiceClient) CreateKubernetesCluster(ctx context.Con
 	return out, nil
 }
 
-func (c *kubernetesClusterServiceClient) GetKubernetesCluster(ctx context.Context, in *KubernetesCluster, opts ...grpc.CallOption) (*KubernetesCluster, error) {
+func (c *kubernetesClusterServiceClient) GetKubernetesCluster(ctx context.Context, in *FilterOptions, opts ...grpc.CallOption) (*KubernetesCluster, error) {
 	out := new(KubernetesCluster)
 	err := c.cc.Invoke(ctx, "/kubernetescluster.v1alpha1.KubernetesClusterService/GetKubernetesCluster", in, out, opts...)
 	if err != nil {
@@ -55,7 +55,7 @@ func (c *kubernetesClusterServiceClient) GetKubernetesCluster(ctx context.Contex
 	return out, nil
 }
 
-func (c *kubernetesClusterServiceClient) ListKubernetesCluster(ctx context.Context, in *KubernetesCluster, opts ...grpc.CallOption) (*KubernetesClusterList, error) {
+func (c *kubernetesClusterServiceClient) ListKubernetesCluster(ctx context.Context, in *FilterOptions, opts ...grpc.CallOption) (*KubernetesClusterList, error) {
 	out := new(KubernetesClusterList)
 	err := c.cc.Invoke(ctx, "/kubernetescluster.v1alpha1.KubernetesClusterService/ListKubernetesCluster", in, out, opts...)
 	if err != nil {
@@ -73,7 +73,7 @@ func (c *kubernetesClusterServiceClient) UpdateKubernetesCluster(ctx context.Con
 	return out, nil
 }
 
-func (c *kubernetesClusterServiceClient) DeleteKubernetesCluster(ctx context.Context, in *KubernetesCluster, opts ...grpc.CallOption) (*KubernetesCluster, error) {
+func (c *kubernetesClusterServiceClient) DeleteKubernetesCluster(ctx context.Context, in *FilterOptions, opts ...grpc.CallOption) (*KubernetesCluster, error) {
 	out := new(KubernetesCluster)
 	err := c.cc.Invoke(ctx, "/kubernetescluster.v1alpha1.KubernetesClusterService/DeleteKubernetesCluster", in, out, opts...)
 	if err != nil {
@@ -87,10 +87,10 @@ func (c *kubernetesClusterServiceClient) DeleteKubernetesCluster(ctx context.Con
 // for forward compatibility
 type KubernetesClusterServiceServer interface {
 	CreateKubernetesCluster(context.Context, *KubernetesCluster) (*KubernetesCluster, error)
-	GetKubernetesCluster(context.Context, *KubernetesCluster) (*KubernetesCluster, error)
-	ListKubernetesCluster(context.Context, *KubernetesCluster) (*KubernetesClusterList, error)
+	GetKubernetesCluster(context.Context, *FilterOptions) (*KubernetesCluster, error)
+	ListKubernetesCluster(context.Context, *FilterOptions) (*KubernetesClusterList, error)
 	UpdateKubernetesCluster(context.Context, *KubernetesCluster) (*KubernetesCluster, error)
-	DeleteKubernetesCluster(context.Context, *KubernetesCluster) (*KubernetesCluster, error)
+	DeleteKubernetesCluster(context.Context, *FilterOptions) (*KubernetesCluster, error)
 	mustEmbedUnimplementedKubernetesClusterServiceServer()
 }
 
@@ -101,16 +101,16 @@ type UnimplementedKubernetesClusterServiceServer struct {
 func (UnimplementedKubernetesClusterServiceServer) CreateKubernetesCluster(context.Context, *KubernetesCluster) (*KubernetesCluster, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateKubernetesCluster not implemented")
 }
-func (UnimplementedKubernetesClusterServiceServer) GetKubernetesCluster(context.Context, *KubernetesCluster) (*KubernetesCluster, error) {
+func (UnimplementedKubernetesClusterServiceServer) GetKubernetesCluster(context.Context, *FilterOptions) (*KubernetesCluster, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetKubernetesCluster not implemented")
 }
-func (UnimplementedKubernetesClusterServiceServer) ListKubernetesCluster(context.Context, *KubernetesCluster) (*KubernetesClusterList, error) {
+func (UnimplementedKubernetesClusterServiceServer) ListKubernetesCluster(context.Context, *FilterOptions) (*KubernetesClusterList, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListKubernetesCluster not implemented")
 }
 func (UnimplementedKubernetesClusterServiceServer) UpdateKubernetesCluster(context.Context, *KubernetesCluster) (*KubernetesCluster, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateKubernetesCluster not implemented")
 }
-func (UnimplementedKubernetesClusterServiceServer) DeleteKubernetesCluster(context.Context, *KubernetesCluster) (*KubernetesCluster, error) {
+func (UnimplementedKubernetesClusterServiceServer) DeleteKubernetesCluster(context.Context, *FilterOptions) (*KubernetesCluster, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteKubernetesCluster not implemented")
 }
 func (UnimplementedKubernetesClusterServiceServer) mustEmbedUnimplementedKubernetesClusterServiceServer() {
@@ -146,7 +146,7 @@ func _KubernetesClusterService_CreateKubernetesCluster_Handler(srv interface{}, 
 }
 
 func _KubernetesClusterService_GetKubernetesCluster_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(KubernetesCluster)
+	in := new(FilterOptions)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -158,13 +158,13 @@ func _KubernetesClusterService_GetKubernetesCluster_Handler(srv interface{}, ctx
 		FullMethod: "/kubernetescluster.v1alpha1.KubernetesClusterService/GetKubernetesCluster",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(KubernetesClusterServiceServer).GetKubernetesCluster(ctx, req.(*KubernetesCluster))
+		return srv.(KubernetesClusterServiceServer).GetKubernetesCluster(ctx, req.(*FilterOptions))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _KubernetesClusterService_ListKubernetesCluster_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(KubernetesCluster)
+	in := new(FilterOptions)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -176,7 +176,7 @@ func _KubernetesClusterService_ListKubernetesCluster_Handler(srv interface{}, ct
 		FullMethod: "/kubernetescluster.v1alpha1.KubernetesClusterService/ListKubernetesCluster",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(KubernetesClusterServiceServer).ListKubernetesCluster(ctx, req.(*KubernetesCluster))
+		return srv.(KubernetesClusterServiceServer).ListKubernetesCluster(ctx, req.(*FilterOptions))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -200,7 +200,7 @@ func _KubernetesClusterService_UpdateKubernetesCluster_Handler(srv interface{}, 
 }
 
 func _KubernetesClusterService_DeleteKubernetesCluster_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(KubernetesCluster)
+	in := new(FilterOptions)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -212,7 +212,7 @@ func _KubernetesClusterService_DeleteKubernetesCluster_Handler(srv interface{}, 
 		FullMethod: "/kubernetescluster.v1alpha1.KubernetesClusterService/DeleteKubernetesCluster",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(KubernetesClusterServiceServer).DeleteKubernetesCluster(ctx, req.(*KubernetesCluster))
+		return srv.(KubernetesClusterServiceServer).DeleteKubernetesCluster(ctx, req.(*FilterOptions))
 	}
 	return interceptor(ctx, in, info, handler)
 }
