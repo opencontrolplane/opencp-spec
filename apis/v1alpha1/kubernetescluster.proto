@@ -22,7 +22,7 @@ message KubernetesClusterSpec {
     repeated KubernetesClusterPool pools = 1;
 	string version = 2;
 	string firewall = 3;
-	string cni_plugin = 4;
+	string cniplugin = 4 [json_name = "cni_plugin"]; 
 }
 
 message KubernetesClusterPool {
@@ -30,14 +30,14 @@ message KubernetesClusterPool {
 	string size = 2;     
 	int64  count = 3;      
 	bool   autoscaling = 4; 
-	optional int64  min_size = 5;
-	optional int64  max_size = 6;
+	optional int64  minsize = 5 [json_name = "min_size"];
+	optional int64  maxsize = 6 [json_name = "max_size"];
 }
 
 message KubernetesClusterStatus {
     string state = 1;
 	string endpoint = 2;
-	string public_ip = 3;
+	string publicip = 3 [json_name = "public_ip"];
 }
 
 // KubernetesClusterList is a list of KubernetesCluster.
