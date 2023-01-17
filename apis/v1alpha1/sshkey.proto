@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package sshkey.v1alpha1;
+option go_package = "github.com/opencontrolplane/opencp-spec/grpc";
+
+import "k8s.io/apimachinery/pkg/apis/meta/v1/generated.proto";
+import "options.proto";
+
+
+message SSHKeyStatus {
+    string state = 1;
+    string fingerprint = 2;
+}
+
+message SSHKeySpec {
+    string publicKey = 1 [json_name="public_key"];
+}
+
+message SSHKey {
+    // Standard object's metadata.
+    // More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+    // +optional
+    optional k8s.io.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+
+    // Spec defines the behavior of a domain.
+    // +optional
+    optional SSHKeySpec spec = 4;
+
+    // Status represents the current information about a domain. This data may be out of date.
+    // +optional
+    optional SSHKeyStatus status = 5;
+}
+
+message SSHKeyList {       
+         // Standard object's metadata.
+        // More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        // +optional
+        optional k8s.io.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 4;
+
+        // List of domains
+        repeated SSHKey items = 5;
+}
+
+
+service SSHKeyService {
+    rpc CreateSSHKey(SSHKey) returns (SSHKey) {}
+    rpc GetSSHKey(options.FilterOptions) returns (SSHKey) {}
+    // rpc UpdateDomain(Domain) returns (Domain) {}
+    rpc DeleteSSHKey(options.FilterOptions) returns (SSHKey) {}
+    rpc ListSSHKey(options.FilterOptions) returns (SSHKeyList) {}
+}
