@@ -13,7 +13,7 @@ message SSHKeyStatus {
 }
 
 message SSHKeySpec {
-    string publicKey = 1 [json_name="public_key"];
+    string publickey = 1;
 }
 
 message SSHKey {

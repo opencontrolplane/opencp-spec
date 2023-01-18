@@ -1,0 +1,61 @@
+syntax = "proto3";
+
+package firewall.v1alpha1;
+option go_package = "github.com/opencontrolplane/opencp-spec/grpc";
+
+import "k8s.io/apimachinery/pkg/apis/meta/v1/generated.proto";
+import "options.proto";
+
+// FirewallStatus
+message FirewallStatus {
+    // The status of the firewall
+    string status = 1;
+    string totalrules = 2;
+}
+
+message FirewallRules {
+	repeated string source = 1;
+	string label = 2;
+	string ports = 3;
+	string protocol = 4;
+	string action = 5;
+}
+
+
+message FirewallSpec {
+    repeated FirewallRules ingress = 1;
+    repeated FirewallRules egress = 2;
+}
+
+message Firewall {
+    // Standard object's metadata.
+    // More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+    // +optional
+    optional k8s.io.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+
+    // Spec defines the behavior of a domain.
+    // +optional
+    optional FirewallSpec spec = 4;
+
+    // Status represents the current information about a domain. This data may be out of date.
+    // +optional
+    optional FirewallStatus status = 5;
+}
+
+message FirewallList {
+    // Standard list metadata.
+    // More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+    // +optional
+    optional k8s.io.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 1;
+
+    // List of domains
+    repeated Firewall items = 2;
+}
+
+service FirewallService {
+    rpc CreateFirewall (Firewall) returns (Firewall) {}
+    // rpc UpdateFirewall (Firewall) returns (Firewall) {}
+    rpc DeleteFirewall (options.FilterOptions) returns (Firewall) {}
+    rpc GetFirewall (options.FilterOptions) returns (Firewall) {}
+    rpc ListFirewall (options.FilterOptions) returns (FirewallList) {}
+}

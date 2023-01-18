@@ -6,7 +6,7 @@ import (
 
 // SSHKeySpec defines the desired state of SSHKey
 type SSHKeySpec struct {
-	PublicKey string `json:"public_key"`
+	PublicKey string `json:"publickey"`
 }
 
 // SSHKeyStatus
