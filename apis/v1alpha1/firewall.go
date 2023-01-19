@@ -22,7 +22,7 @@ type FirewallRules struct {
 // FirewallStatus
 type FirewallStatus struct {
 	State      string `json:"state,omitempty"`
-	TotalRules int64  `json:"totalrules,omitempty"`
+	TotalRules string `json:"totalrules,omitempty"`
 }
 
 // Firewall is the Schema for the Firewall API

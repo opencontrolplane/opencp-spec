@@ -9,7 +9,7 @@ import "options.proto";
 // FirewallStatus
 message FirewallStatus {
     // The status of the firewall
-    string status = 1;
+    string state = 1;
     string totalrules = 2;
 }
 
