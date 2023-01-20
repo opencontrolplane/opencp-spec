@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package objectstorage.v1alpha1;
+option go_package = "github.com/opencontrolplane/opencp-spec/grpc";
+
+import "k8s.io/apimachinery/pkg/apis/meta/v1/generated.proto";
+import "options.proto";
+
+message ObjectStorageSpec {
+    int32 size = 1;
+    string storageCredential = 2;
+}
+
+message ObjectStorageStatus {
+    string state = 1;
+    string endpoint = 2;
+    string storageCredential = 3;
+}
+
+message ObjectStorage {
+    // Standard object's metadata.
+    // More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+    // +optional
+    optional k8s.io.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+
+    // Spec defines the behavior of a domain.
+    // +optional
+    optional ObjectStorageSpec spec = 4;
+
+    // Status represents the current information about a domain. This data may be out of date.
+    // +optional
+    optional ObjectStorageStatus status = 5;
+}
+
+message ObjectStorageList {       
+    // Standard object's metadata.
+   // More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+   // +optional
+   optional k8s.io.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 4;
+
+   // List of domains
+   repeated ObjectStorage items = 5;
+}
+
+service ObjectStorageService {
+    rpc CreateObjectStorage(ObjectStorage) returns (ObjectStorage) {}
+    // rpc UpdateObjectStorage(ObjectStorage) returns (ObjectStorage) {}
+    rpc DeleteObjectStorage(options.FilterOptions) returns (ObjectStorage) {}
+    rpc GetObjectStorage(options.FilterOptions) returns (ObjectStorage) {}
+    rpc ListObjectStorage(options.FilterOptions) returns (ObjectStorageList) {}
+}

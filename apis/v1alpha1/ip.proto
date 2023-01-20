@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+package ip.v1alpha1;
+option go_package = "github.com/opencontrolplane/opencp-spec/grpc";
+
+import "k8s.io/apimachinery/pkg/apis/meta/v1/generated.proto";
+import "options.proto";
+
+message IpStatus {
+    string ip = 1;
+    AssignedTo assignedto = 2;
+}
+
+message IpSpec {
+    string name = 1;
+}
+
+message AssignedTo {
+    string id = 1;
+    string type = 2;
+    string name = 3;
+}
+
+message Ip {
+    // Standard object's metadata.
+    // More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+    // +optional
+    optional k8s.io.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+
+    // Spec defines the behavior of a IP.
+    // +optional
+    optional IpSpec spec = 4;
+
+    // Status represents the current information about a IP.
+    // +optional
+    optional IpStatus status = 5;
+}
+
+message IpList {       
+         // Standard object's metadata.
+        // More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        // +optional
+        optional k8s.io.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 4;
+
+        // List of IP
+        repeated Ip items = 5;
+}
+
+service IpService {
+    rpc CreateIp(Ip) returns (Ip) {}
+    // rpc UpdateIp(Ip) returns (Ip) {}
+    rpc DeleteIp(options.FilterOptions) returns (Ip) {}
+    rpc GetIp(options.FilterOptions) returns (Ip) {}
+    rpc ListIp(options.FilterOptions) returns (IpList) {}
+}

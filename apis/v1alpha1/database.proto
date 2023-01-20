@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+package ip.v1alpha1;
+option go_package = "github.com/opencontrolplane/opencp-spec/grpc";
+
+import "k8s.io/apimachinery/pkg/apis/meta/v1/generated.proto";
+import "options.proto";
+
+message DatabaseSpec {
+    int32 nodes = 1;
+    string size = 2;
+    string engine = 3;
+    string engineVersion = 4;
+    string firewall = 5;
+}
+
+message DatabaseStatus {
+    string username = 1;
+    string password = 2;
+    int32 port = 3;
+    string publicIP = 4;
+    string state = 5;
+}
+
+message Database {
+    // Standard object's metadata.
+    // More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+    // +optional
+    optional k8s.io.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 3;
+
+    // Spec defines the behavior of a database.
+    // +optional
+    optional DatabaseSpec spec = 4;
+
+    // Status represents the current information about a database.
+    // +optional
+    optional DatabaseStatus status = 5;
+}
+
+message DatabaseList {       
+    // Standard object's metadata.
+   // More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+   // +optional
+   optional k8s.io.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 4;
+
+   // List of Database
+   repeated Database items = 5;
+}
+
+service DatabaseService {
+    rpc CreateDatabase(Database) returns (Database) {}
+    rpc GetDatabase(options.FilterOptions) returns (Database) {}
+    // rpc UpdateDatabase(Database) returns (Database) {}
+    rpc DeleteDatabase(options.FilterOptions) returns (Database) {}
+    rpc ListDatabase(options.FilterOptions) returns (DatabaseList) {}
+}
