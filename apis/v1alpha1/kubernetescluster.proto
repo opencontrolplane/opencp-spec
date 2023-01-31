@@ -30,7 +30,7 @@ message KubernetesClusterSpec {
 message KubernetesClusterPool {
     string id = 1;
 	string size = 2;     
-	int64  count = 3;      
+	int32  count = 3;      
 	bool   autoscaling = 4; 
 	optional int64  minsize = 5 [json_name = "min_size"];
 	optional int64  maxsize = 6 [json_name = "max_size"];

@@ -16,7 +16,7 @@ type KubernetesClusterSpec struct {
 type Pool struct {
 	ID          string `json:"id"`
 	Size        string `json:"size"`
-	Count       int64  `json:"count"`
+	Count       int32  `json:"count"`
 	Autoscaling bool   `json:"autoscaling,omitempty"`
 	MinSize     int64  `json:"min_size,omitempty"`
 	MaxSize     int64  `json:"max_size,omitempty"`
@@ -28,7 +28,6 @@ type KubernetesClusterStatus struct {
 	Endpoint string `json:"endpoint,omitempty"`
 	PublicIP string `json:"public_ip,omitempty"`
 }
-
 
 // KubernetesCluster is the Schema for the Kubernetes Cluster API
 type KubernetesCluster struct {
