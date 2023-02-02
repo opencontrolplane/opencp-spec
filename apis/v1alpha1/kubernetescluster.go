@@ -6,10 +6,11 @@ import (
 
 // KubernetesClusterSpec defines the desired state of KubernetesCluster
 type KubernetesClusterSpec struct {
-	Pools     []Pool `json:"pools"`
-	Version   string `json:"version"`
-	Firewall  string `json:"firewall"`
-	CNIPlugin string `json:"cni_plugin,omitempty"`
+	Pools       []Pool `json:"pools"`
+	Version     string `json:"version"`
+	Firewall    string `json:"firewall"`
+	CNIPlugin   string `json:"cni_plugin,omitempty"`
+	ClusterType string `json:"cluster_type,omitempty"`
 }
 
 // Pool is a strcut to manage the Cluster
