@@ -26,6 +26,7 @@ message KubernetesClusterSpec {
 	string firewall = 3;
 	string cniplugin = 4 [json_name = "cni_plugin"];
     string clustertype = 5 [json_name = "cluster_type"];
+    string kubeconfig = 6;
 }
 
 message KubernetesClusterPool {

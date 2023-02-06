@@ -11,6 +11,7 @@ type KubernetesClusterSpec struct {
 	Firewall    string `json:"firewall"`
 	CNIPlugin   string `json:"cni_plugin,omitempty"`
 	ClusterType string `json:"cluster_type,omitempty"`
+	Kubeconfig  string `json:"kubeconfig,omitempty"`
 }
 
 // Pool is a strcut to manage the Cluster
