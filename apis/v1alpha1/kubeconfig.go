@@ -31,6 +31,7 @@ type UserInfo struct {
 }
 
 type Context struct {
+	Name    string `json:"name,omitempty"`
 	Cluster string `json:"cluster,omitempty"`
 	User    string `json:"user,omitempty"`
 }
