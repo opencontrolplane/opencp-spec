@@ -15,6 +15,7 @@ type Kubeconfig struct {
 }
 
 type Cluster struct {
+	Name                     string `json:"name,omitempty"`
 	Server                   string `json:"server,omitempty"`
 	CertificateAuthorityData string `json:"certificateAuthorityData,omitempty"`
 }
