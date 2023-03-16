@@ -6,13 +6,13 @@ import (
 
 // SSHKeySpec defines the desired state of SSHKey
 type SSHKeySpec struct {
-	PublicKey string `json:"publickey"`
+	PublicKey string `json:"publicKey"`
 }
 
 // SSHKeyStatus
 type SSHKeyStatus struct {
 	State       string `json:"state,omitempty"`
-	Fingerprint string `json:"fingerprint,omitempty"`
+	FingerPrint string `json:"fingerPrint,omitempty"`
 }
 
 // SSHKey is the Schema for the SSHKey API

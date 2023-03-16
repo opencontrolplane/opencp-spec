@@ -9,11 +9,11 @@ import "options.proto";
 
 message SSHKeyStatus {
     string state = 1;
-    string fingerprint = 2;
+    string fingerPrint = 2;
 }
 
 message SSHKeySpec {
-    string publickey = 1;
+    string publicKey = 1;
 }
 
 message SSHKey {

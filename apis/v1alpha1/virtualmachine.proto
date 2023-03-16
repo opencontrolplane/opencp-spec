@@ -39,12 +39,12 @@ message VirtualMachineSpec {
 message VirtualMachineAuth {
 	string user = 1;
 	optional string password = 2;
-	string sshKey = 3 [json_name = "ssh_key"];
+	string sshKey = 3;
 }
 
 message VirtualMachineStatus {
-    string privateIP = 1 [json_name = "private_ip"];
-	string publicIP  = 2 [json_name = "public_ip"]; 
+    string privateIP = 1;
+	string publicIP  = 2; 
 	string state     = 3;
 }
 
