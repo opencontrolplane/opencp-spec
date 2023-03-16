@@ -9,8 +9,8 @@ type KubernetesClusterSpec struct {
 	Pools       []Pool `json:"pools"`
 	Version     string `json:"version"`
 	Firewall    string `json:"firewall"`
-	CNIPlugin   string `json:"cni_plugin,omitempty"`
-	ClusterType string `json:"cluster_type,omitempty"`
+	CNIPlugin   string `json:"cniPlugin,omitempty"`
+	ClusterType string `json:"clusterType,omitempty"`
 	Kubeconfig  string `json:"kubeconfig,omitempty"`
 }
 
@@ -20,15 +20,15 @@ type Pool struct {
 	Size        string `json:"size"`
 	Count       int32  `json:"count"`
 	Autoscaling bool   `json:"autoscaling,omitempty"`
-	MinSize     int64  `json:"min_size,omitempty"`
-	MaxSize     int64  `json:"max_size,omitempty"`
+	MinSize     int64  `json:"minSize,omitempty"`
+	MaxSize     int64  `json:"maxSize,omitempty"`
 }
 
 // KubernetesClusterStatus defines the observed state of KubernetesCluster
 type KubernetesClusterStatus struct {
 	State    string `json:"state,omitempty"`
 	Endpoint string `json:"endpoint,omitempty"`
-	PublicIP string `json:"public_ip,omitempty"`
+	PublicIP string `json:"publicIP,omitempty"`
 }
 
 // KubernetesCluster is the Schema for the Kubernetes Cluster API

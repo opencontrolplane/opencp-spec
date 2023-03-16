@@ -6,8 +6,8 @@ import (
 
 // ObjectStorageCredentialSpec defines the desired state of ObjectStorageCredential
 type ObjectStorageCredentialSpec struct {
-	AccessKey string `json:"accesskey,omitempty"`
-	SecretKey string `json:"secretkey,omitempty"`
+	AccessKey string `json:"accessKey,omitempty"`
+	SecretKey string `json:"secretKey,omitempty"`
 }
 
 // ObjectStorage defines the desired status of ObjectStorage

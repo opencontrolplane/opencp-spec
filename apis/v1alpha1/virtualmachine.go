@@ -11,25 +11,25 @@ type VirtualMachineSpec struct {
 	Ipv4         bool               `json:"ipv4,omitempty"`
 	Ipv6         bool               `json:"ipv6,omitempty"`
 	StaticIP     string             `json:"static_ip,omitempty"`
-	Storageclass string             `json:"storageclass,omitempty"`
+	Storageclass string             `json:"storageClass,omitempty"`
 	Image        string             `json:"image,omitempty"`
 	Auth         VirtualMachineAuth `json:"auth,omitempty"`
 	Tags         []string           `json:"tags,omitempty"`
-	Cloudinit    string             `json:"cloudinit,omitempty"`
-	UserScript   string             `json:"user_script,omitempty"`
+	Cloudinit    string             `json:"cloudInit,omitempty"`
+	UserScript   string             `json:"userScript,omitempty"`
 }
 
 // VirtualMachineAuth defines the auth for the VM
 type VirtualMachineAuth struct {
 	User     string `json:"user,omitempty"`
 	Password string `json:"password,omitempty"`
-	SSHKey   string `json:"ssh_key,omitempty"`
+	SSHKey   string `json:"sshKey,omitempty"`
 }
 
 // VirtualMachineStatus defines the observed state of VirtualMachine
 type VirtualMachineStatus struct {
-	PrivateIP string `json:"private_ip,omitempty"`
-	PublicIP  string `json:"public_ip,omitempty"`
+	PrivateIP string `json:"privateIP,omitempty"`
+	PublicIP  string `json:"publicIP,omitempty"`
 	State     string `json:"state,omitempty"`
 }
 
